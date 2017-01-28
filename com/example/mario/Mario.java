@@ -6,13 +6,11 @@ import java.lang.String;
 import java.lang.Integer;
 import java.io.Console;
 import java.io.IOException;
-import java.io.Writer;
-import java.io.FileWriter;
-import java.io.OutputStreamWriter;
 
 class Mario {
+
     public static void main(String[] args) {
-        Writer writer = null;
+        OutputStrategy out = null;
         boolean toFile = getBool("Output to file (yes/no)? ");
         if (toFile) {
             do {
@@ -20,40 +18,37 @@ class Mario {
                 Console c = System.console();
                 String file = c.readLine();
                 try {
-                    writer = new FileWriter(file);
+                    out = new FileOutputStrategy(file);
                 }
                 catch (IOException e) {
-                    System.out.println(e.getMessage());
+                    System.err.println(e.getMessage());
                 }
             }
-            while (writer == null);
+            while (out == null);
         }
         else {
-            writer = new OutputStreamWriter(System.out);
+            out = new StdoutOutputStrategy();
         }
         int h = getInt("Height (0–23)? ", 0, 23);
         try {
             for (int w = 2; w <= h+1; w++) {
                 for (int i = 0; i < h+1-w; i++) {
-                    writer.write(" ");
+                    out.print(" ");
                 }
                 for (int i = 0; i < w; i++) {
-                    writer.write("#");
+                    out.print("#");
                 }
-                writer.write(System.lineSeparator());
+                out.print(System.lineSeparator());
             }
-            writer.flush();
         }
         catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
-        if (toFile) {
-            try {
-                writer.close();
-            }
-            catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
+        try {
+            out.close();
+        }
+        catch (IOException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -93,4 +88,5 @@ class Mario {
         while ((!valid) || ret < min || ret > max);
         return ret;
     }
+
 }
