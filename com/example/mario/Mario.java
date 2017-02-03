@@ -21,20 +21,15 @@ class Mario {
         else {
             out = new StdoutOutputStrategy();
         }
-        int h = getInt("Height (0–23)? ", 0, 23);
-
-        StringBuilder sb = new StringBuilder();
-        for (int w = 2; w <= h+1; w++) {
-            for (int i = 0; i < h+1-w; i++) {
-                sb.append(' ');
-            }
-            for (int i = 0; i < w; i++) {
-                sb.append('#');
-            }
-            sb.append(System.lineSeparator());
+        int h = getInt(
+                String.format("Height (0–%d)? ", Pyramid.maxHeight),
+                0, Pyramid.maxHeight
+        );
+        try{
+            out.print(new Pyramid(h).toString());
+        } catch (InvalidHeightException e) {
+            e.printStackTrace();
         }
-
-        out.print(sb.toString());
     }
 
     private static boolean getBool(String prompt) {
