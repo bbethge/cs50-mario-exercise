@@ -13,43 +13,28 @@ class Mario {
         OutputStrategy out = null;
         boolean toFile = getBool("Output to file (yes/no)? ");
         if (toFile) {
-            do {
-                System.out.print("File name? ");
-                Console c = System.console();
-                String file = c.readLine();
-                try {
-                    out = new FileOutputStrategy(file);
-                }
-                catch (IOException e) {
-                    System.err.println(e.getMessage());
-                }
-            }
-            while (out == null);
+            System.out.print("File name? ");
+            Console c = System.console();
+            String file = c.readLine();
+            out = new FileOutputStrategy(file);
         }
         else {
             out = new StdoutOutputStrategy();
         }
         int h = getInt("Height (0–23)? ", 0, 23);
-        try {
-            for (int w = 2; w <= h+1; w++) {
-                for (int i = 0; i < h+1-w; i++) {
-                    out.print(" ");
-                }
-                for (int i = 0; i < w; i++) {
-                    out.print("#");
-                }
-                out.print(System.lineSeparator());
+
+        StringBuilder sb = new StringBuilder();
+        for (int w = 2; w <= h+1; w++) {
+            for (int i = 0; i < h+1-w; i++) {
+                sb.append(' ');
             }
+            for (int i = 0; i < w; i++) {
+                sb.append('#');
+            }
+            sb.append(System.lineSeparator());
         }
-        catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-        try {
-            out.close();
-        }
-        catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
+
+        out.print(sb.toString());
     }
 
     private static boolean getBool(String prompt) {

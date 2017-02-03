@@ -6,8 +6,4 @@ public class StdoutOutputStrategy implements OutputStrategy {
         System.out.print(s);
     }
 
-    public void close() {
-        // Do nothing
-    }
-
 }
