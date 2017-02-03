@@ -2,6 +2,6 @@ package com.example.mario;
 
 public interface Printer {
 
-    public void print(String s);
+    public void print(Pyramid p);
 
 }

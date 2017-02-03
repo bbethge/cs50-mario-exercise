@@ -16,9 +16,9 @@ public class FilePrinter implements Printer {
     /* Note that this replaces the contents of the file each time
      * it is called!
      */
-    public void print(String s) {
+    public void print(Pyramid p) {
         try (BufferedWriter out = new BufferedWriter(new FileWriter(file))) {
-            out.write(s);
+            out.write(p.toString());
         } catch (IOException e) {
             System.err.println("Couldn’t write to file: " + e.getMessage());
         }

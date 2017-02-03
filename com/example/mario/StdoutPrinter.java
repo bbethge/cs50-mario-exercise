@@ -2,8 +2,8 @@ package com.example.mario;
 
 public class StdoutPrinter implements Printer {
 
-    public void print(String s) {
-        System.out.print(s);
+    public void print(Pyramid p) {
+        System.out.print(p.toString());
     }
 
 }
