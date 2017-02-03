@@ -26,7 +26,7 @@ class Mario {
                 0, Pyramid.maxHeight
         );
         try{
-            out.print(PyramidFactory.pyramid(h));
+            out.print(PyramidFactory.getInstance().pyramid(h));
         } catch (InvalidHeightException e) {
             e.printStackTrace();
         }
