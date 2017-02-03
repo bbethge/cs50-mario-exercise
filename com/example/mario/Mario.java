@@ -5,11 +5,15 @@ package com.example.mario;
 import java.lang.String;
 import java.lang.Integer;
 import java.io.Console;
-import java.io.IOException;
 
 class Mario {
 
     public static void main(String[] args) {
+        Mario mario = new Mario();
+        mario.run(new PyramidFactory());
+    }
+
+    public void run(PyramidFactory pf) {
         Printer out = null;
         boolean toFile = getBool("Output to file (yes/no)? ");
         if (toFile) {
@@ -26,7 +30,7 @@ class Mario {
                 0, Pyramid.maxHeight
         );
         try{
-            out.print(PyramidFactory.getInstance().pyramid(h));
+            out.print(pf.pyramid(h));
         } catch (InvalidHeightException e) {
             e.printStackTrace();
         }
