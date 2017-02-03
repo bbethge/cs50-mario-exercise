@@ -1,6 +1,6 @@
 package com.example.mario;
 
-public interface OutputStrategy {
+public interface Printer {
 
     public void print(String s);
 

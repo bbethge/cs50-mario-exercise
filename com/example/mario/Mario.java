@@ -10,16 +10,16 @@ import java.io.IOException;
 class Mario {
 
     public static void main(String[] args) {
-        OutputStrategy out = null;
+        Printer out = null;
         boolean toFile = getBool("Output to file (yes/no)? ");
         if (toFile) {
             System.out.print("File name? ");
             Console c = System.console();
             String file = c.readLine();
-            out = new FileOutputStrategy(file);
+            out = new FilePrinter(file);
         }
         else {
-            out = new StdoutOutputStrategy();
+            out = new StdoutPrinter();
         }
         int h = getInt(
                 String.format("Height (0–%d)? ", Pyramid.maxHeight),

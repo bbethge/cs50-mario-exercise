@@ -5,11 +5,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileOutputStrategy implements OutputStrategy {
+public class FilePrinter implements Printer {
 
     private File file;
 
-    public FileOutputStrategy(String fileName) {
+    public FilePrinter(String fileName) {
         file = new File(fileName);
     }
 
