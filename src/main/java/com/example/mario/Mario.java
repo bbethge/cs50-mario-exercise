@@ -5,15 +5,25 @@ package com.example.mario;
 import java.lang.String;
 import java.lang.Integer;
 import java.io.Console;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 class Mario {
 
     public static void main(String[] args) {
-        Mario mario = new Mario();
-        mario.run(new PyramidFactory());
+    	ApplicationContext context = 
+    			new ClassPathXmlApplicationContext("application.xml");
+        Mario mario = (Mario) context.getBean("mario");
+        mario.run();
     }
 
-    public void run(PyramidFactory pf) {
+    private PyramidFactory pyramidFactory;
+
+    public Mario(PyramidFactory pf) {
+    	this.pyramidFactory = pf;
+    }
+
+    public void run() {
         Printer out = null;
         boolean toFile = getBool("Output to file (yes/no)? ");
         if (toFile) {
@@ -30,7 +40,7 @@ class Mario {
                 0, Pyramid.maxHeight
         );
         try{
-            out.print(pf.pyramid(h));
+            out.print(pyramidFactory.pyramid(h));
         } catch (InvalidHeightException e) {
             e.printStackTrace();
         }
